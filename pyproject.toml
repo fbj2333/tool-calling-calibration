@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bfcl-calibration"
+version = "1.0.0"
+description = "Action-class diagnostic (Gold Action Recall) for multi-turn tool calling, with the SRI and CRI probes."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+dependencies = []
+
+[project.optional-dependencies]
+# BFCL multi-turn on API models (scripts/run_bfcl_api.py).
+bfcl = ["bfcl-eval==2026.3.23"]
+# BFCL multi-turn on local checkpoints served with vLLM (Linux + CUDA).
+vllm = ["bfcl-eval[oss-eval-vllm]==2026.3.23"]
+# tau2-bench and the SRI-lite agent (tau2-bench requires Python >= 3.12).
+tau2 = ["tau2 @ git+https://github.com/sierra-research/tau2-bench@a03b7910bc968f706306e16017a9cb650caf7af2"]
+# LLM judge for the tau2 confirmation table.
+judge = ["openai>=1.86"]
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+include = ["bfcl_calibration*"]
+
+[tool.setuptools.package-data]
+"bfcl_calibration.evaluation.bfcl" = ["*.json"]
